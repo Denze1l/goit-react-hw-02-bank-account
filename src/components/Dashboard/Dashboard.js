@@ -9,7 +9,7 @@ import 'react-toastify/dist/ReactToastify.css';
 class Dashboard extends Component {
   state = {
     transactions: [],
-    balance: 5000,
+    balance: 0,
     summ: 0,
     income: 0,
     expenses: 0,
@@ -35,7 +35,7 @@ class Dashboard extends Component {
     };
 
     if (summ === 0 || summ === '') {
-      toast.error('NoNoNo');
+      toast.error('Введите сумму для проведения операции!');
     } else {
       this.setState({
         balance: balance + Number(eachTranth.amount),
@@ -54,8 +54,10 @@ class Dashboard extends Component {
       type: 'withdrawal',
       // date: Date.prototype.toLocaleString(),
     };
-    if (summ === 0 || balance < summ || summ === '') {
-      toast.error('NoNoNo');
+    if (balance < summ) {
+      toast.error('На счету недостаточно средств для проведения операции!');
+    } else if (summ === 0 || summ === '') {
+      toast.error('Введите сумму для проведения операции!');
     } else {
       this.setState({
         balance: balance - Number(eachTranth.amount),
